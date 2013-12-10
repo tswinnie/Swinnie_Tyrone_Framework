@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="adApp">
+  <head>
+    <title>Lab 4 Ads</title>
+    
+    <!-- JavaScript -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-resource.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+      
+    <script>
+          adApp = angular.module('adApp',['ngRoute']);
+          
+          adApp.config(function($routeProvider) {
+              $routeProvider
+              .when("/",{
+                  controller:'firstAdController',
+                  templateUrl:'html/ad1.html'
+              })
+              .when("/ad2",{
+                  controller:'secondAdController',
+                  templateUrl:'html/ad2.html'
+              })
+          })
+          
+          adApp.controller('firstAdController', function($scope,$http) {
+              // empt array that wil hold data
+//              $scope.items = [];
+              
+              $http.jsonp('http://otagtekin.com/lab4.php?action=getAds&username=student&password=1234&callback=JSON_CALLBACK')
+              .success(function(json) {
+                  console.log(json);
+//                  $scope.items = json;
+                  
+                  $scope.ad1 = json[0].ads[0];
+                  console.log(json[0].ads[0]);
+
+                  
+
+              })
+          })
+
+          //now I 
+          
+          
+//          adApp.controller('secondAdController', function($scope,$http) {
+//              $http.jsonp('http://otagtekin.com/lab4.php?action=getAds&username=student&password=1234&callback=JSON_CALLBACK')
+//              .success(function(json) {
+//                  console.log(json);
+//                  
+//                  $scope.ad2 = json[0].ads[1];
+//                  console.log(json[0].ads[1]);
+//              })
+//          })
+      </script>
+  </head>
+
+  <body>
+      <ng-view ng-controller="firstAdController">
+          
+          <ul rn-carousel rn-carousel-indicator="true">
+              
+              
+              <li class="adCar" ng-repeat="item in items" ></li>
+              
+              </ul>
+      
+      
+      
+      
+      
+      
+      </ng-view>
+  </body>
+</html>
