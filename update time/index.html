@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
+
+
+</head>
+<body>
+
+<div class="demo">
+    <input id="to">
+    <input id="from">
+
+</div>
+
+
+
+ <script>
+     var min = 1000 * 60 * 60 * 24 * 7;
+
+
+     $("#to").datepicker({
+         onClose: function(dateText) {
+
+             var fromDate = $("#from").datepicker('getDate')
+
+             if(fromDate == null){
+                 var toDate = new Date(dateText);
+                 var fromDate = new Date();
+                 fromDate.setTime(toDate.getTime() + min);
+                 $("#from").datepicker('setDate', fromDate);
+             }
+
+         }
+     });
+
+     $("#from").datepicker({
+         onClose: function(dateText) {
+
+             var toDate = $("#to").datepicker('getDate');
+
+             if(toDate == null){
+                 var fromDate = new Date(dateText);
+                 var toDate = new Date();
+                 toDate.setTime(fromDate.getTime() - min);
+                 $("#to").datepicker('setDate', toDate);
+             }
+
+         }
+     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     //     $("#to").datepicker();
+//     $("#from").datepicker({
+//
+//         onSelect: function(){
+//          var fromDate = $(this).datepicker('getDate');
+//             fromDate.setDate(fromDate.getDate()-min);
+//             $("#to").datepicker("setDate", fromDate);
+//
+//         }
+//     });
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
